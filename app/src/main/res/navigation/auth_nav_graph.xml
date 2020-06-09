@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/fragment_auth">
+
+    <fragment
+        android:id="@+id/fragment_auth"
+        android:name="com.mune0903.suzuri.app.ui.auth.AuthFragment"
+        android:label="AuthFragment" >
+        <action
+            android:id="@+id/action_authFragment_self"
+            app:destination="@id/fragment_auth" >
+            <argument
+                android:name="code"
+                android:defaultValue="@null" />
+        </action>
+        <argument
+            android:name="code"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+</navigation>

@@ -1,0 +1,1 @@
+/Users/tajiri-munenori/suzuri-app/buildSrc/build/classes/kotlin/main/dependency/Dep$Versions.class:/Users/tajiri-munenori/suzuri-app/buildSrc/build/classes/kotlin/main/dependency/Dep.class
