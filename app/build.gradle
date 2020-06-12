@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.mune0903.suzuri.app"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -36,6 +36,10 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    kapt {
+        correctErrorTypes = true
     }
 }
 

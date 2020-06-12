@@ -1,5 +1,7 @@
 package dependency
 
+import sun.misc.Version
+
 object Dep {
     object Versions {
         val rxKotlin = "3.0.0"
@@ -29,6 +31,7 @@ object Dep {
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     val retrofitAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
     val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
+    val moshiKapt = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
     val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
     val retrofitRxJavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
     val groupie = "com.xwray:groupie:${Versions.groupie}"

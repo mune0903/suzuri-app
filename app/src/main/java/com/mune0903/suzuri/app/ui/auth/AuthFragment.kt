@@ -21,14 +21,19 @@ class AuthFragment : Fragment() {
             token.observe( this@AuthFragment, Observer {
                 it?.let {
                     saveToken(it.access_token)
+                    println("tokenは" + it.access_token)
                     transitToMainActivity()
                 }
             })
         }
 
+        if (viewModel.isLogin()) {
+            transitToMainActivity()
+            return
+        }
+
         args.code?.let {
             viewModel.getToken(it)
-            println(it)
         } ?: run {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(AUTH_URL))
             startActivity(intent)

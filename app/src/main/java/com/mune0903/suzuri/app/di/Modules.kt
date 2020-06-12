@@ -2,11 +2,15 @@ package com.mune0903.suzuri.app.di
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.mune0903.suzuri.app.ui.auth.AuthViewModel
-import com.mune0903.suzuri.data.AuthRepository
-import com.mune0903.suzuri.data.AuthRepositoryImpl
+import com.mune0903.suzuri.app.ui.item.ItemViewModel
+import com.mune0903.suzuri.data.repository.AuthRepository
+import com.mune0903.suzuri.data.repository.AuthRepositoryImpl
 import com.mune0903.suzuri.data.remote.BASE_API_URL
 import com.mune0903.suzuri.data.remote.BASE_OAUTH_URL
+import com.mune0903.suzuri.data.repository.SuzuriRepository
+import com.mune0903.suzuri.data.repository.SuzuriRepositoryImpl
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -31,7 +35,9 @@ object Modules {
         }
 
         factory {
-            Moshi.Builder().build()
+            Moshi.Builder()
+                .add(KotlinJsonAdapterFactory())
+                .build()
         }
 
         factory(named("auth")) {
@@ -53,9 +59,11 @@ object Modules {
 
     val repositoryModule = module {
         single<AuthRepository> { AuthRepositoryImpl(androidContext(), get(named("auth"))) }
+        single<SuzuriRepository> { SuzuriRepositoryImpl(androidContext(), get(named("api")))}
     }
 
     val viewModelModule = module {
         viewModel { AuthViewModel(get()) }
+        viewModel { ItemViewModel(get()) }
     }
 }

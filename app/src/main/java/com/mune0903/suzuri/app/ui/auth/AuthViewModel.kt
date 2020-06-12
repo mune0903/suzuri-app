@@ -8,23 +8,27 @@ import com.mune0903.suzuri.app.CLIENT_ID
 import com.mune0903.suzuri.app.CLIENT_SECRET
 import com.mune0903.suzuri.app.GRANT_TYPE
 import com.mune0903.suzuri.app.REDIRECT_URI
-import com.mune0903.suzuri.data.AuthRepository
+import com.mune0903.suzuri.data.repository.AuthRepository
 import com.mune0903.suzuri.data.model.Token
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class AuthViewModel(
-    private val authRepository: AuthRepository
+    private val repository: AuthRepository
 ) : ViewModel() {
 
     private val _token = MutableLiveData<Token>()
     val token: LiveData<Token> = _token
 
+    fun isLogin(): Boolean {
+        return repository.isLogin()
+    }
+
     fun getToken(code: String) {
         viewModelScope.launch {
             runCatching {
-                authRepository.getToken(GRANT_TYPE, code, REDIRECT_URI, CLIENT_ID, CLIENT_SECRET)
+                repository.getToken(GRANT_TYPE, code, REDIRECT_URI, CLIENT_ID, CLIENT_SECRET)
             }.onSuccess {
                 _token.value = it
             }.onFailure {
@@ -34,7 +38,7 @@ class AuthViewModel(
     }
 
     fun saveToken(token: String) {
-        authRepository.saveToken(token)
+        repository.saveToken(token)
     }
 
     override fun onCleared() {

@@ -1,4 +1,4 @@
-package com.mune0903.suzuri.data
+package com.mune0903.suzuri.data.repository
 
 import android.content.Context
 import androidx.core.content.edit
@@ -11,9 +11,15 @@ class AuthRepositoryImpl(
     private val retrofit: Retrofit
 ) : AuthRepository {
 
+    val tokenKey = "token"
     private val client by lazy { retrofit.create(SuzuriClient::class.java) }
-    private val tokenKey = "token"
     private val sharedPreferences = context.getSharedPreferences(tokenKey, Context.MODE_PRIVATE)
+
+    override fun isLogin(): Boolean {
+        sharedPreferences.getString(tokenKey, "").let {
+            return !it.isNullOrEmpty()
+        }
+    }
 
     override suspend fun getToken(
         grant_type: String,
